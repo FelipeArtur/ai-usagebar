@@ -761,3 +761,25 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+mod documentation_tests {
+    #[test]
+    fn every_vendor_has_a_documented_short_name() {
+        let docs = include_str!("../docs/format-placeholders.md");
+        let table = docs
+            .split("`{vendor_short}` identifies the active provider:")
+            .nth(1)
+            .unwrap()
+            .split("The same codes")
+            .next()
+            .unwrap();
+        for vendor in crate::vendor::VendorId::all() {
+            assert!(
+                table.contains(&format!("`{}`", vendor.short_name())),
+                "missing short name for {}",
+                vendor.slug()
+            );
+        }
+    }
+}

@@ -149,7 +149,7 @@ window; before that fix each refresh flashed a console that took the
 foreground and closed the popover.
 
 To see why it closed, start the tray with `AIUB_TRAY_TRACE=1`: every blur,
-report and hide is appended to `%TEMP%i-usagebar-tray-trace.log` with the
+report and hide is appended to `%TEMP%\ai-usagebar-tray-trace.log` with the
 window that held the foreground.
 
 ## Errors and warnings
@@ -174,7 +174,7 @@ OpenUsage does on a fresh install: for every vendor it has not seen before it
 checks — on this machine only, never over the network — whether a credential
 already exists, and writes `enabled = true` into `config.toml` for the ones
 that do. It never turns a vendor off, and it never re-checks a vendor it has
-already seen (`%LOCALAPPDATA%ai-usagebardetect.json` remembers them), so
+already seen (`%LOCALAPPDATA%\ai-usagebar\detect.json` remembers them), so
 your own `enabled` choices always win. **Options → Detect Providers** re-runs
 the check for every vendor on demand, for example after signing in to a new
 tool. The same detection is available everywhere as `ai-usagebar detect`

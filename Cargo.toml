@@ -16,7 +16,6 @@ categories = ["command-line-utilities"]
 # in the crates.io tarball — they're for the GitHub README and AUR builds,
 # not for consumers of the crate or its binaries.
 exclude = [
-    "screenshot.png",
     "screenshots/*",
     "packaging/*",
     ".github/*",

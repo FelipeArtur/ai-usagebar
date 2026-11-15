@@ -79,7 +79,8 @@ slide rather than reset, so every weekly reset placeholder is empty by design.
 | Devin | `dvn` | Cline | `cln` |
 | Muse Code | `msc` | Synthetic | `syn` |
 | Droid | `drd` | DeepRelay | `drl` |
-| Mistral | `mis` | | |
+| Mistral | `mis` | Grok Bot | `gbt` |
+| OrcaRouter | `orc` | Model Studio | `mst` |
 
 The same codes ride the `ai-usagebar usage --json` report as each entry's
 `short_name`, so a native frontend can draw a Waybar-style provider tag without

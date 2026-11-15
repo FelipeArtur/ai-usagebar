@@ -32,12 +32,12 @@ you make while the check is running.
 # Which vendor the widget shows when --vendor is omitted, AND which tab
 # is selected when the TUI opens. Defaults to anthropic when not set.
 # Only a vendor that is enabled can be primary.
-# primary = "anthropic"   # any vendor slug, e.g. anthropic | openai | copilot | ollama | cline
+# primary = "anthropic"   # any vendor slug, e.g. anthropic | anthropic_api | openai | copilot | ollama
 #                         # | zai | openrouter | deepseek | deepinfra | kimi | kilo | novita
 #                         # | moonshot | grok | supergrok | grokbot | antigravity | cursor
 #                         # | minimax | kiro | nous | opencode-go | commandcode
 #                         # | orcarouter | modelstudio | lyceum | devin | cline | muse-code | droid
-#                         # | synthetic | mistral
+#                         # | synthetic | mistral | deeprelay
 # Which vendors the Overview lists, in this order. The TUI tab bar leads with
 # the same list; enabled vendors left off it follow in the canonical order.
 # Omit for every enabled vendor. A repeated slug keeps its first occurrence;
@@ -185,9 +185,17 @@ enabled = true             # disabled by default; enable once you add an API key
 api_key_env = "ORCAROUTER_API_KEY"
 # api_key = "sk-orca-..."  # used if ORCAROUTER_API_KEY is unset; chmod 600 the file!
 
+[synthetic]
+enabled = false
+api_key_env = "SYNTHETIC_API_KEY"
+
+[nous]
+enabled = false
+# Sign in with: ai-usagebar auth nous login
+
 [ollama]
 # Disabled by default; enable after minting a key at
-# https://ollama.com/settings/keys (Bearer for https://ollama.com/api/usage).
+# https://ollama.com/settings/keys (Bearer for https://ollama.com/api/balance).
 enabled = true
 api_key_env = "OLLAMA_API_KEY"
 # api_key = "..."          # used if OLLAMA_API_KEY is unset; chmod 600 the file!
@@ -381,7 +389,7 @@ accounts unless `show_default_account = false`.
 For more than one OpenRouter key, see the
 [OpenRouter account guide](openrouter-accounts.md). The existing singular
 `[openrouter]` key remains the default account and needs no migration. Z.AI,
-DeepSeek, DeepInfra, Kilo, Novita, Moonshot, Grok, MiniMax, OrcaRouter, and Lyceum take the same
+Anthropic API, DeepSeek, DeepInfra, Kilo, Novita, Moonshot, Grok, MiniMax, OrcaRouter, and Lyceum take the same
 `[[<vendor>.accounts]]` array and `show_default_account` switch — see the
 [API-key account guide](api-key-accounts.md).
 

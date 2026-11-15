@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### Fixed
+
+- Correct developer test instructions, Ollama balance endpoint references,
+  provider configuration documentation, and Windows diagnostic paths.
+
 ## [1.52.1] — 2026-11-14
 
 ### Fixed

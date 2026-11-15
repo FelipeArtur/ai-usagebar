@@ -54,16 +54,19 @@ cargo clippy --all-targets -- -D warnings
 cargo fmt --all -- --check
 ```
 
-Node contract tests (optional, needs Node 18+):
+Node contract tests (optional, needs Node 20+):
 
 ```powershell
 node gnome-extension\marker-logic.test.mjs
 node gnome-extension\layout.test.mjs
 node gnome-extension\report-model.test.mjs
 node gnome-extension\prefs.test.mjs
+node gnome-extension\terminal.test.mjs
 node kde-plasmoid\plasmoid-logic.test.mjs
 node windows\popover\popover.test.mjs
 node omarchy\model.test.mjs
+node omarchy\priority.test.mjs
+node omarchy\notice.test.mjs
 ```
 
 ## Run
@@ -144,7 +147,7 @@ compare with `docs/vendor-endpoints.md`:
 
 ```powershell
 Invoke-RestMethod `
-  -Uri "https://ollama.com/api/usage" `
+  -Uri "https://ollama.com/api/balance" `
   -Headers @{ Authorization = "Bearer $env:OLLAMA_API_KEY" }
 ```
 

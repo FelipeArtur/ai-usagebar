@@ -20,7 +20,8 @@ invariants see [CLAUDE.md](CLAUDE.md).
 | Tool | Version | Notes |
 |---|---|---|
 | Rust / Cargo | **1.90+** (MSRV) | [rustup](https://rustup.rs/) |
-| Node.js | 18+ | GNOME / KDE / Omarchy / Windows popover contract tests |
+| Node.js | 20+ | Frontend contract tests and macOS / Windows popover build |
+| Python | 3 | Linux Mint and macOS packaging contract tests |
 | Git | any | |
 
 On Windows you also need the **MSVC Build Tools** (linker) and **NASM**
@@ -46,7 +47,7 @@ Binaries land at:
 |---|---|
 | Widget / CLI | `target/release/ai-usagebar` |
 | TUI | `target/release/ai-usagebar-tui` |
-| Windows tray | `target/release/ai-usagebar-tray` (Windows only) |
+| Tray | `target/release/ai-usagebar-tray` (macOS and Windows) |
 
 Debug builds (`cargo build`) are fine for iterating; the first release build
 is slow because of `reqwest` / `ring`.
@@ -94,21 +95,25 @@ Default config locations:
 The gate contributors run is the same one CI runs:
 
 ```bash
-make test                                          # cargo test + desktop JS suites
+make test                                          # cargo test + frontend and packaging suites
 cargo clippy --all-targets -- -D warnings
 cargo fmt --all -- --check
 cargo machete                                      # no unused dependencies
 ```
 
 `make test` rather than `cargo test` alone: the GNOME, KDE, Omarchy, and
-Windows-popover frontends have Node contract tests, and a report-shape change
+Windows-popover frontends have Node contract tests. Linux Mint and macOS
+packaging have Python contract tests, and a report-shape change
 can break them without touching Rust.
 
 | Target | What it runs |
 |---|---|
-| `make test` | `cargo test` + `desktop-test` + `plugin-test` |
+| `make test` | `cargo test` + `desktop-test` + `plugin-test` + `mint-test` + `macos-package-test` |
 | `make desktop-test` | GNOME, KDE, Windows popover `.test.mjs` |
-| `make plugin-test` | Omarchy `model.test.mjs` |
+| `make plugin-test` | Omarchy model, priority, and notice contract tests |
+| `make mint-test` | Linux Mint model tests (Python) |
+| `make macos-package-test` | macOS app packaging tests (Python; runs on Linux too) |
+| `make popover-ssr-test` | Popover SSR tests (installs npm dependencies) |
 | `make smoke` | `cargo test --test live -- --ignored --nocapture` |
 | `make clippy` | `cargo clippy --all-targets -- -D warnings` |
 | `make fmt` | `cargo fmt` |
@@ -154,7 +159,7 @@ See [docs/configuration.md](docs/configuration.md) for the full reference.
 ## Ollama Cloud
 
 Native provider — **not** a `[[custom]]` table. Bearer token from
-https://ollama.com/settings/keys against `GET https://ollama.com/api/usage`.
+https://ollama.com/settings/keys against `GET https://ollama.com/api/balance`.
 
 Copy the `[ollama]` section from [config.example.toml](config.example.toml)
 into your config and set `enabled = true`:
@@ -174,7 +179,7 @@ export OLLAMA_API_KEY="…"          # minted at ollama.com/settings/keys
 
 The local daemon at `127.0.0.1:11434` has **no** quota route. The Ed25519
 CLI key in `~/.ollama/id_ed25519` is a registry credential and is refused by
-`/api/usage` with 401.
+`/api/balance` with 401.
 
 Full walkthrough: [docs/ollama-setup.md](docs/ollama-setup.md).
 

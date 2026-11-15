@@ -546,7 +546,8 @@ For each API-key vendor, ai-usagebar checks in this order:
 
 1. A non-empty environment variable named by `api_key_env`.
 2. An inline `api_key` in the same config section.
-3. An error that names both missing options.
+3. On macOS, a configured `[keychain]` entry for supported vendors and accounts.
+4. An error when no configured credential is available.
 
 ### Security
 
@@ -1207,7 +1208,7 @@ Waybar examples.
 
 ### Multiple keys for other API-key providers
 
-Z.AI, DeepSeek, DeepInfra, Kilo, Novita, Moonshot, Grok, MiniMax, OrcaRouter, and Lyceum take the
+Anthropic API, Z.AI, DeepSeek, DeepInfra, Kilo, Novita, Moonshot, Grok, MiniMax, OrcaRouter, and Lyceum take the
 same array: one `[[<vendor>.accounts]]` entry per extra key, selected with
 `--vendor <vendor> --account <label>`. Region, team, organization, and display
 settings stay per provider. See the
